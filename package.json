@@ -1,0 +1,24 @@
+{
+  "name": "portfolio-wsapi",
+  "version": "1.0.0",
+  "description": "REST API",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/theroadisnear/seikatsu-wsapi.git"
+  },
+  "author": "Rodner Raymundo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/theroadisnear/seikatsu-wsapi/issues"
+  },
+  "homepage": "https://github.com/theroadisnear/seikatsu-wsapi#readme",
+  "dependencies": {
+    "bluebird": "^3.5.1",
+    "express": "^4.16.2",
+    "mongoose": "^4.13.1"
+  }
+}
