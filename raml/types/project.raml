@@ -1,0 +1,23 @@
+types:
+	Skill: !include Skill.raml
+	Project:
+		type: object
+		properties:
+			id:
+			type: string
+			title: string
+			description: string
+			skills: 
+				type: array
+				items: Skill
+				minItems: 1
+				maxItems: 50
+				uniqueItems: true
+			created_at:
+				type: number
+				default: Date.now
+			updated_at:
+				type: number
+			is_deleted:
+				type: boolean
+				default: false

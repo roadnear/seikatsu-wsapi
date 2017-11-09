@@ -1,0 +1,126 @@
+#%RAML 1.0
+title: Portfolio REST API
+version: v1
+baseUri: localhost:{port}/api/{version}
+mediaType: application/json
+resourceTypes:
+	traits:
+		secured:
+			usage: Apply this to any method that requires authentication
+			description: Some requests require authentication
+			headers:
+				access_token:
+					description: Access token
+						required: true
+						example: hfg2^&dfsAsyz*6n$
+		paged:
+			queryParameters:
+				page:
+					type: number
+					required: true
+					minimum: 1
+					example: 1
+				size:
+					type: number
+					required: false
+					minimum: 5
+					default: 10
+					example: 15
+types:
+	Project: !include types/project.raml
+	Skill: !include types/skill.raml
+	error: !include types/error.raml
+	paging:
+		description: Use for pagination, Each property is optional
+		properties: 
+			page?: number
+			size?: number
+	date_duration: #temporary name
+		description: Date time from/to
+		properties:
+			from: number
+			to: number
+	project:
+		description: Possible query parameters
+		properties:
+			title?: string
+			is_deleted?: boolean
+			created_at?: [number | date_duration]
+			updated_at?: [number | date_duration]
+/projects:
+	get:
+		description: Returns a collection of Project,
+		is: [paged]
+		queryString:
+			type: [project, paging]
+			examples:
+				first:
+					value:
+						title: Enterprise resource system
+						is_deleted: true
+				second:
+					value:
+						start: 5
+						size: 10
+						is_deleted: false
+		responses:
+			200:
+				body:
+					application/json:
+						type: Project[]
+			404:
+				body:
+					application/json:
+						type: error
+	post:
+		description: Creates new project
+		is: [secured]
+		body:
+			type: Project
+		responses:
+			201:
+				body:
+					application/json:
+						type: Project
+			422:
+				body:
+					application/json:
+						type: error
+
+	/{id}:
+		get:
+			description: Returns a specific Project by id
+			responses:
+				200:
+					body:
+						application/json:
+							type: Project
+				404:
+					body:
+						application/json:
+							type: error
+		put:
+			description: Updates the existing project
+			is: [secured]
+			responses:
+				204:
+				404:
+					body:
+						application/json:
+							type: error
+				422:
+					body:
+						application/json:
+							type: error
+		delete:
+			description: Removes an existing project
+			is: [secured]
+			responses:
+				204:
+				404:
+					body:
+						application/json:
+							type: error
+
+
+		
