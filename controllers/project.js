@@ -4,4 +4,5 @@ module.exports = function (router) {
 		console.log('GET: ' + req.originalUrl);
 		return res.status(200).json();
 	});
+	
 }
