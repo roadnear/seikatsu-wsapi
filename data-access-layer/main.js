@@ -1,5 +1,8 @@
 module.exports = function (mongoose) {
 
-	require('./project.schema')(mongoose);
+	const project = require('./project.schema')(mongoose);
 
+	return {
+		Project: project
+	}
 }
