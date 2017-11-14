@@ -10,6 +10,7 @@ module.exports = function (mongoose) {
 			required: true
 		},
 		skills: [{
+			_id: false,
 			name: {
 				type: String,
 				required: true
@@ -28,7 +29,12 @@ module.exports = function (mongoose) {
 			default: false
 		}
 	});
+	projectSchema.index({
+		title: 'text',
+		description: 'text'
+	});
 	const project = mongoose.model('Project', projectSchema);
+
 
 	return project;
 }
