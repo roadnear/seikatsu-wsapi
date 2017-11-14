@@ -1,5 +1,5 @@
 module.exports = function (constants, db) {
-	//inject all services;
+	//inject all models;
 	const project = require('./project')(constants, db);
 
 	return {
