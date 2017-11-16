@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
+const bodyParser = require('body-parser')
 const router = express.Router();
 const constants = require('./constants')();
 const Promise = require('bluebird');
@@ -21,6 +22,7 @@ const models = require('./models/index')(constants, db);
 require('./routes/project')(constants, router, models);
 require('./routes/seed')(constants, router, models);
 
+app.use(bodyParser.json());
 app.use('/api/v1', router);
 app.use((err, req, res, next) => {
 	console.error('middleware == ', err);
