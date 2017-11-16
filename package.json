@@ -19,6 +19,7 @@
   "dependencies": {
     "bluebird": "^3.5.1",
     "express": "^4.16.2",
-    "mongoose": "^4.13.1"
+    "mongoose": "^4.13.1",
+    "mongoose-beautiful-unique-validation": "^7.0.0"
   }
 }
