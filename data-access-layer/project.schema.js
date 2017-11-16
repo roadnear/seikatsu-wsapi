@@ -1,9 +1,11 @@
 module.exports = function (mongoose) {
 
+	const beautifyUnique = require('mongoose-beautiful-unique-validation');
 	const projectSchema = new mongoose.Schema({
 		title: {
 			type: String,
-			required: true
+			required: true,
+			unique: true
 		},
 		description: {
 			type: String,
@@ -33,6 +35,7 @@ module.exports = function (mongoose) {
 		title: 'text',
 		description: 'text'
 	});
+	projectSchema.plugin(beautifyUnique);
 	const project = mongoose.model('Project', projectSchema);
 
 
