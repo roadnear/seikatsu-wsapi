@@ -1,6 +1,8 @@
 types:
+	errorValidation: !include error-validation.raml
 	error:
 		description: Error message response
 		properties:
 			message: string
 			code: number
+			errors?: []errorValidation
