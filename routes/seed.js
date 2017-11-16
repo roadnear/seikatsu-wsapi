@@ -56,7 +56,7 @@ module.exports = function (constants, router, models) {
 	];
 
 	router.post('/seed', (req, res) => {
-		console.log('POST: ' + req.originalUrl + ' -- req.query == ', req.query);
+		console.log(`POST: ${req.originalUrl}`);
 
 		projectModel.createMany(projects).then((createdProjects) => {
 			console.log('Number of created mock projects: ', createdProjects.length);
