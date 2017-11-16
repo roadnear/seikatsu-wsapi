@@ -1,5 +1,9 @@
 module.exports = function (error, resolve) {
 	if (!error || !resolve) return;
-	console.error(error);
-	return resolve.status(500).send();
+	resolve.status(error.code || 500);
+	if (error.code === 500) {
+		console.error(error);
+		return resolve.send();
+	}
+	return resolve.json(error);
 }
