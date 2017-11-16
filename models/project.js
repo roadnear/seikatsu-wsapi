@@ -1,6 +1,7 @@
 module.exports = function (constants, db) {
 
 	const Project = db.Project;
+	const transcribeValidation = require('../utils/transcribe-validation');
 
 	return {
 		find: function (query, options) {
@@ -23,9 +24,12 @@ module.exports = function (constants, db) {
 				});
 				newProject.save((err, createdProject) => {
 					if (err) {
-						rej(err);
+						transcribeValidation(err).then(errMessage => {
+							rej(errMessage);
+						});
+					} else {
+						res(createdProject);
 					}
-					res(createdProject);
 				})
 			});
 		},
@@ -40,9 +44,12 @@ module.exports = function (constants, db) {
 				}));
 				Project.create(newProjectList, (err, createdProjects) => {
 					if (err) {
-						rej(err);
+						transcribeValidation(err).then(errMessage => {
+							rej(errMessage);
+						});
+					} else {
+						res(createdProjects);
 					}
-					res(createdProjects);
 				})
 			});
 		}
