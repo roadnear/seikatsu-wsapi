@@ -9,8 +9,9 @@ module.exports = function (constants, router, models) {
 		console.log('GET: ' + req.originalUrl + ' -- req.query == ', req.query);
 
 		const query = new ProjectTypes.query(req.query);
-		console.log('query == ', query)
-		projectModel.find(query, { select: null}).then((projects) => {
+		const options = new ProjectTypes.options({});
+		
+		projectModel.find(query, options).then((projects) => {
 			if (!projects.length) {
 				return res.status(404).send();
 			}
