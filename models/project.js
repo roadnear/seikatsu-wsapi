@@ -33,7 +33,7 @@ module.exports = function (constants, db) {
 				})
 			});
 		},
-		createMany: function(projectList) {
+		createMany: function (projectList) {
 			return new Promise((res, rej) => {
 				const newProjectList = projectList.map((item => {
 					return {
@@ -51,6 +51,44 @@ module.exports = function (constants, db) {
 						res(createdProjects);
 					}
 				})
+			});
+		},
+		update: function (id, project) {
+			return new Promise((res, rej) => {
+				Project.findOneAndUpdate({ _id: id }, project, (err, updatedProject) => {
+					if (err) {
+						transcribeValidation(err).then(errMessage => {
+							rej(errMessage);
+						});
+					}
+					if (!updatedProject && !err) {
+						rej({
+							code: 404,
+							message: 'Update failed. Project not found.'
+						});
+					}
+					if (updatedProject) {
+						res(updatedProject);
+					}
+				});
+			});
+		},
+		delete: function (id) {
+			return new Promise((res, rej) => {
+				Project.findOneAndRemove({ _id: id}, (err, removedProject) => {
+					if (err) {
+						rej(err);
+					}
+					if (!err && !removedProject) {
+						rej({
+							code: 404,
+							message: 'Delete failed. Project not found.'
+						});
+					}
+					if (removedProject) {
+						res(removedProject);
+					}
+				});
 			});
 		}
 	}
