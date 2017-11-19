@@ -33,5 +33,10 @@ module.exports = {
 		if (typeof userType === 'string') {
 			//object modification, to be added
 		}
+	},
+	update: function (project, userType) {
+		if (typeof project !== 'object') throw new Error(`${project} invalid type`);
+		if (project.hasOwnProperty('title')) this.title = project.title;
+		if (project.hasOwnProperty('description')) this.description = project.description;
 	}
 }
