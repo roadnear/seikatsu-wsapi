@@ -35,9 +35,11 @@ module.exports = function (mongoose) {
 		title: 'text',
 		description: 'text'
 	});
+	projectSchema.pre('findOneAndUpdate', function () {
+		this.findOneAndUpdate({}, { $set: { updated_at: Date.now() }});
+	});
 	projectSchema.plugin(beautifyUnique);
 	const project = mongoose.model('Project', projectSchema);
-
 
 	return project;
 }
